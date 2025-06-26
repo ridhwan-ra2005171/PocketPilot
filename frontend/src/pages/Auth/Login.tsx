@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import AuthLayout from '../../components/layout/AuthLayout'
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/inputs/input';
+// ts-ignore
+import { validateEmail } from '../../utils/helper.js';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +16,20 @@ const Login = () => {
   //handle Login form:
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      setError('All fields are required');
+      return;
+    }
+
+    if(!validateEmail(email)){
+      setError('Enter a valid email address');
+      return;
+    }
+
+    setError('');
+
+    //Login API calls
   }
 
   return (
@@ -37,6 +53,11 @@ const Login = () => {
         placeholder='Enter your password'
         type='password'
         />
+
+        {error && <p className='text-red-500 text-xs mt-2'>{error}</p>}
+        <button type='submit' className='btn-primary'>Login</button>
+
+        <p className='mt-4'>Don't have an account? <span className='text-primary underline cursor-pointer' onClick={() => navigate('/signup')}>Sign Up</span></p>
       </form>
       </div>
     </AuthLayout>

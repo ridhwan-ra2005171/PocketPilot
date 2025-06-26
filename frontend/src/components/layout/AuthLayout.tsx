@@ -6,7 +6,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className='flex'>
             <div className='v-screen h-screen md:w-[60vw] px-12 pt-8 pb-12'>
-                <h2 className='text-lg font-medium text-black'>Expense Tracker</h2>
+                <h2 className='text-2xl font-bold text-black'>Expense Tracker</h2>
                 {children}
             </div>
 
@@ -27,7 +27,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
                 <img
                     src={CARD_2}
-                    className='w-64 lg:w-[90%] absolute bottom-10 shadow-lg shadow-blue-400/25 rounded-xl' />
+                    className='w-64 lg:w-[90%] absolute bottom-10 shadow-lg shadow-blue-400/15 rounded-' />
 
             </div>
 
@@ -39,7 +39,6 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
 export default AuthLayout
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const StatsInfoCard = ({ icon, label, value, color }: any) => {
     return (
         <div className='flex gap-6 bg-white p-4 rounded-xl shadow-md shadow-purple-400/10 border border-gray-200/50 z-10'>
