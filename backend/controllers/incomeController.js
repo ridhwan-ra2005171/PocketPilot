@@ -27,7 +27,7 @@ exports.addIncome = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: "Error adding income", error: err.message });
     }
-}
+};
 
 //get all income sources
 exports.getAllIncome = async (req, res) => {
@@ -39,14 +39,21 @@ exports.getAllIncome = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: "Error getting income", error: err.message });
     }
-}
+};
 
 //delete income source
 exports.deleteIncome = async (req, res) => {
+    const userId = req.user.id;
     
-}
+    try{
+        await Income.findByIdAndDelete(req.params.id);
+        res.json({ message: "Income deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ message: "Error deleting income", error: err.message });
+    }
+};
 
 //download excel
 exports.downloadIncomeExcel = async (req, res) => {
     
-}
+};
