@@ -2,7 +2,7 @@ const xlsx = require("xlsx");
 const Income = require("../models/Income");
 
 
-//add income source
+//add income 
 exports.addIncome = async (req, res) => {
     const userId = req.user.id;
 
