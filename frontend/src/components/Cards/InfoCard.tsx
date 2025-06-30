@@ -14,6 +14,5 @@ const InfoCard = ({icon, label, value,color}) => {
   )
 }
 
-//stopped at 2:31:05
 
 export default InfoCard
