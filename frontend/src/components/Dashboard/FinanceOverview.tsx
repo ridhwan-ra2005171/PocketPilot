@@ -10,7 +10,7 @@ const FinanceOverview = ({totalBalance,totalExpense, totalIncome}) => {
         { name: "Total Income", amount: totalIncome },
     ]
   return (
-    <div className='card mt-6'>
+    <div className='card'>
         <div className='flex items-center justify-between'>
             <h5 className='text-lg'>Financial Overview</h5>
         </div>

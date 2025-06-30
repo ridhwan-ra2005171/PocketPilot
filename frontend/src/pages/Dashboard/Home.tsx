@@ -70,14 +70,16 @@ const Home = () => {
             transactions={dashboardData?.recentTransactions || []}
             onSeeMore={() => navigate("/expense")}
           />
-        </div>
 
-        {/* pie chart */}
+          {/* pie chart */}
         <FinanceOverview
         totalBalance={dashboardData?.totalBalance || 0}
         totalIncome={dashboardData?.totalIncome || 0}
         totalExpense={dashboardData?.totalExpense || 0}
         />
+        </div>
+
+        
       </div>
     </DashboardLayout>
   )
