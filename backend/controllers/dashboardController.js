@@ -61,7 +61,7 @@ exports.getDashboardData = async (req, res) => {
             ),
         ].sort((a, b) => b.date - a.date); //lastest first
 
-        //Final Response
+        //Final Response (will be used by frontend)
         res.json({
             totalBalance:
             (totalIncome[0]?.total || 0) - (totalExpense[0]?.total || 0),
