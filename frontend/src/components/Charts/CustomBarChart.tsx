@@ -2,7 +2,7 @@ import React from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 
 const CustomBarChart = ({data}) => {
-    console.log(data);
+    // console.log(data);
     
     //to alternate colors
     const getBarColor = (index) =>{
@@ -28,7 +28,7 @@ const CustomBarChart = ({data}) => {
         <ResponsiveContainer width={"100%"} height={300} >
             <BarChart data={data}>
                 <CartesianGrid stroke='none'/>
-                <XAxis dataKey="category" tick={{fontSize: 12, fill: '#555'}} stroke='none'/>
+                <XAxis dataKey={"month"} tick={{fontSize: 12, fill: '#555'}} stroke='none'/>
                 <YAxis tick={{fontSize: 12, fill: '#555'}} stroke='none'/>
 
                 <Tooltip content={CustomTooltip}/>
