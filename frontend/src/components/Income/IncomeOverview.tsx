@@ -21,7 +21,7 @@ const IncomeOverview = ({ transactions, onAddIncome }) => {
                 </div>
 
                 <button className='add-btn' onClick={onAddIncome}>
-                    <LuPlus className='text-2xl' /> Add Income
+                    <LuPlus className='text-lg' /> Add Income
                 </button>
             </div>
 
