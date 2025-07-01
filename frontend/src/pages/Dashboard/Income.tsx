@@ -4,13 +4,14 @@ import IncomeOverview from '../../components/Income/IncomeOverview'
 import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import Modal from '../../components/Modal';
+import AddIncomeForm from '../../components/Income/AddIncomeForm';
 
 const Income = () => {
 
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState({ show: false, data: null });
-  const [OpenAddIncomeModal, setOpenAddIncomeModal] = useState(true);
+  const [OpenAddIncomeModal, setOpenAddIncomeModal] = useState(false);
 
   //Get All Income Details
   const fetchIncomeDetails = async () => {
@@ -69,7 +70,8 @@ const Income = () => {
           title="Add Income"
         >
           <div>
-
+            {/* modal content */}
+            <AddIncomeForm onAddIncome={handleAddIncome} />
           </div>
         </Modal>
       </div>
