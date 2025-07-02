@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import IncomeList from '../../components/Income/IncomeList';
 import DeleteAlert from '../../components/DeleteAlert';
 import { useUserAuth } from '../../hooks/useUserAuth';
+import moment from 'moment';
 
 const Income = () => {
   useUserAuth();
@@ -86,9 +87,26 @@ const Income = () => {
     }
   }
 
-  //handle download income details
+  //handle download income details (excel sheet)
   const handleDownloadIncomeDetails = async () => {
+    const todayDate = moment().format('DD-MM-YYYY');
+    try{
+      const response = await axiosInstance.get(`${API_PATHS.INCOME.DOWNLOAD_INCOME}`, { responseType: 'blob' });
 
+      //Create Url for the blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `income_details_${todayDate}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode?.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.log("Failed to download expense details. Please try again", error.response?.data?.message || error.message
+      );
+      toast.error("Failed to download expense details. Please try again");
+    }
   }
 
   useEffect(() => {

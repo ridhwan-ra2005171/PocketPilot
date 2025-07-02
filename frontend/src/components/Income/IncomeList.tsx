@@ -1,5 +1,5 @@
 import React from 'react'
-import { LuArrowRight } from 'react-icons/lu'
+import {  LuDownload } from 'react-icons/lu'
 import TransactionInfoCard from '../Cards/TransactionInfoCard'
 import moment from 'moment'
 
@@ -9,7 +9,7 @@ const IncomeList = ({transactions, onDelete, onDownload}) => {
         <div className='flex items-center justify-between'>
             <h5 className='text-lg'>Income Sources</h5>
 
-            <button className='card-btn' onClick={onDownload}>Download <LuArrowRight className='text-base'/>
+            <button className='card-btn' onClick={onDownload}>Download <LuDownload className='text-base'/>
             </button>
         </div>
 
