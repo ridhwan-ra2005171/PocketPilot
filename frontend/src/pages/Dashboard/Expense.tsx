@@ -5,6 +5,8 @@ import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import { useUserAuth } from '../../hooks/useUserAuth';
 import ExpenseOverview from '../../components/Expense/ExpenseOverview';
+import Modal from '../../components/Modal';
+import AddExpenseForm from '../../components/Expense/AddExpenseForm';
 
 const Expense = () => {
   useUserAuth();
@@ -82,6 +84,16 @@ const Expense = () => {
             />
           </div>
         </div>
+        <Modal
+          isOpen={OpenAddExpenseModal}
+          onClose={() => setOpenAddExpenseModal(false)}
+          title="Add Expense"
+        >
+          <div>
+            {/* add income modal content */}
+            <AddExpenseForm onAddExpense={handleAddExpense} />
+          </div>
+        </Modal>
       </div>
     </DashboardLayout>
   )
