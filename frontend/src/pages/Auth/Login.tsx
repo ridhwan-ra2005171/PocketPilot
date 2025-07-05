@@ -80,7 +80,7 @@ const Login = () => {
           />
 
           {error && <p className='text-red-500 text-xs mt-2'>{error}</p>}
-          <button type='submit' className='btn-primary'>Login</button>
+          <button type='submit' className='btn-primary cursor-pointer'>Login</button>
 
           <p className='mt-4'>Don't have an account? <span className='text-primary underline cursor-pointer' onClick={() => navigate('/signup')}>Sign Up</span></p>
         </form>
