@@ -1,25 +1,35 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { LuUser, LuUpload, LuTrash } from 'react-icons/lu'
 
 const ProfilePhotoSelector = ({ image, setImage }) => {
     const inputRef = useRef(null);
-    const [previewUrl, setPreviewUrl] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!image) {
+            setPreviewUrl(null);
+        } else if (typeof image === 'string') {
+            setPreviewUrl(image);
+        } else if (image instanceof File) {
+            const preview = URL.createObjectURL(image);
+            setPreviewUrl(preview);
+            // Clean up the object URL when component unmounts or image changes
+            return () => URL.revokeObjectURL(preview);
+        }
+    }, [image]);
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            //update image state
             setImage(file);
-
-            //generate preview URL from file
-            const preview = URL.createObjectURL(file);
-            setPreviewUrl(preview);
         }
     }
 
     const handleRemoveImage = () => {
         setImage(null);
         setPreviewUrl(null);
+        console.log("img state", image);
+        
     }
 
     const onChooseFile = () => inputRef.current.click();
@@ -34,7 +44,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
                 className='hidden'
             />
 
-            {!image ? (
+            {!image || image === String ? (
                 <div className='w-20 h-20 flex items-center justify-center bg-blue-50 rounded-full relative'>
                     <LuUser className='text-4xl text-primary' />
 
@@ -50,7 +60,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
 
             ) : (
                 <div className='relative'>
-                    <img src={previewUrl} alt="profile" className='w-20 h-20 rounded-full object-cover' />
+                    <img src={previewUrl || undefined} alt="profile" className='w-20 h-20 rounded-full object-cover' />
 
                     <button
                         type='button'

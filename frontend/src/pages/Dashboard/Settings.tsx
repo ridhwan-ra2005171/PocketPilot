@@ -105,8 +105,8 @@ const Settings = () => {
                     <p className='text-xs text-gray-400 mt-0.5'>Manage your profile settings</p>
                 </div>
                 <form onSubmit={handleSubmit}>
-                    {/* <ProfilePhotoSelector image={image || user?.profileImageUrl} setImage={setImage} /> */}
-                    <div className='flex justify-center mb-6'>
+                    <ProfilePhotoSelector image={image || user?.profileImageUrl} setImage={setImage} />
+                    {/* <div className='flex justify-center mb-6'>
                         {user?.profileImageUrl ? (
                             <img
                                 src={user?.profileImageUrl || ""}
@@ -121,21 +121,19 @@ const Settings = () => {
                                 style="text-2xl"
                             />
                         }
-                    </div>
+                    </div> */}
 
                     <label className='block text-sm'>Name</label>
                     <Input
                         type='text'
                         value={name}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-                        label='Name'
                         placeholder='Enter your name'
                     />
                     <label className='block text-sm'>Email</label>
                     <Input
                         value={email}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                        label='Email Address'
                         placeholder='Enter your email'
                         type='text'
 
@@ -144,7 +142,6 @@ const Settings = () => {
                     <Input
                         value={password}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                        label='Password'
                         placeholder='Enter your password'
                         type='password'
                     />
@@ -152,7 +149,6 @@ const Settings = () => {
                     <Input
                         value={password}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
-                        label='Password'
                         placeholder='Enter your password'
                         type='password'
                     />
