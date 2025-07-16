@@ -80,3 +80,21 @@ exports.getUserInfo = async (req, res) => {
         res.status(500).json({ message: "Error getting user info", error: err.message });
     }
 }
+
+//to delete profile image (using patch)
+exports.deleteProfileImage = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select("-password");
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        user.profileImageUrl = "";
+        await user.save();
+
+        res.status(200).json({ message: "Profile image URL cleared successfully" });
+    } catch (err) {
+        res.status(500).json({ message: "Error clearing profile image URL", error: err.message });
+    }
+};

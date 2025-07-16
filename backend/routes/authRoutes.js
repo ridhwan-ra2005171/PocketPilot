@@ -4,7 +4,8 @@ const {protect} = require("../middleware/authMiddleware");
 const {
     registerUser,
     loginUser,
-    getUserInfo
+    getUserInfo,
+    deleteProfileImage
 } = require("../controllers/authController");
 const upload = require("../middleware/uploadMiddleware");
 
@@ -23,5 +24,7 @@ router.post("/upload-image", upload.single("image"), (req, res) => {
     res.status(200).json({ imageUrl });
 
 });
+
+router.patch("/delete-image", (protect, deleteProfileImage));
 
 module.exports = router;

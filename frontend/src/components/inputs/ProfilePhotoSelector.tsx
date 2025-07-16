@@ -28,7 +28,6 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
     const handleRemoveImage = () => {
         setImage(null);
         setPreviewUrl(null);
-        console.log("img state", image);
         
     }
 
