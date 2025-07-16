@@ -25,6 +25,6 @@ router.post("/upload-image", upload.single("image"), (req, res) => {
 
 });
 
-router.patch("/delete-image", (protect, deleteProfileImage));
+router.patch("/delete-image", protect, deleteProfileImage);
 
 module.exports = router;

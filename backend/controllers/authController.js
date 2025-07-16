@@ -90,7 +90,7 @@ exports.deleteProfileImage = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        user.profileImageUrl = "";
+        user.profileImageUrl = ""; // patching to an empty string
         await user.save();
 
         res.status(200).json({ message: "Profile image URL cleared successfully" });
