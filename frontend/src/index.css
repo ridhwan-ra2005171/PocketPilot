@@ -90,4 +90,27 @@
   .dark .sub {
     @apply text-gray-200
   }
+
+  .navbar{
+    @apply bg-white border-gray-200/50 
+  }
+
+  .dark .navbar{
+    @apply bg-[#141f38] border-gray-700/50 
+  }
+
+  .sidebar{
+    @apply bg-white border border-r border-gray-200/50
+  }
+
+  .dark .sidebar{
+    @apply bg-[#141d38] border border-r border-gray-900/60;
+}
+
+    .charAvatar{
+    @apply text-gray-950
+    }
+    .dark .charAvatar{
+        @apply text-gray-200
+        }
 }

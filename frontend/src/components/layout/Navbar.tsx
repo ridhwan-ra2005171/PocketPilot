@@ -24,11 +24,11 @@ const Navbar = ({ activeMenu }) => {
     }, [theme]);
 
     return (
-        <div className='flex items-center justify-between bg-white  border border-b border-gray-200/50  backdrop-blur-[2px] py-4 px-7 sticky top-0 z-30'>
+        <div className='flex items-center justify-between navbar  shadow-md backdrop-blur-[2px] py-4 px-7 sticky top-0 z-30'>
 
             <div className='flex items-center gap-5'>
                 <button
-                    className='block lg:hidden text-black cursor-pointer'
+                    className='block lg:hidden cursor-pointer'
                     onClick={() => setOpenSideMenu(!openSideMenu)}>
                     {openSideMenu ? (
                         <HiOutlineX className='text-2xl' />
@@ -42,7 +42,10 @@ const Navbar = ({ activeMenu }) => {
             <div className="relative group">
                 <button
                     onClick={toggleTheme}
-                    className="text-xl text-gray-700 hover:text-primary transition cursor-pointer"
+                    className={`text-xl transition cursor-pointer ${theme === 'dark'
+                            ? 'hover:text-amber-400'
+                            : 'hover:text-primary'
+                        }`}
                 >
                     {theme === 'dark' ? <FiSun /> : <FiMoon />}
                 </button>
