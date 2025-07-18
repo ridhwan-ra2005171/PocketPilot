@@ -5,20 +5,23 @@ import SideMenu from './SideMenu';
 
 const Navbar = ({ activeMenu }) => {
     const [openSideMenu, setOpenSideMenu] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || 'light');
 
     // Toggle dark mode
-    const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
+    const toggleTheme = () => {
+        setTheme(theme === 'dark' ? 'light' : 'dark');
     };
 
     useEffect(() => {
-        if (isDarkMode) {
+        // Add or remove dark mode class on <html> tag
+        if (theme === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
-    }, [isDarkMode]);
+        // Store user preference in localStorage
+        localStorage.setItem('theme', theme);
+    }, [theme]);
 
     return (
         <div className='flex items-center justify-between bg-white  border border-b border-gray-200/50  backdrop-blur-[2px] py-4 px-7 sticky top-0 z-30'>
@@ -36,11 +39,14 @@ const Navbar = ({ activeMenu }) => {
                 <h2 className='text-3xl font-semibold text-primary drop-shadow-md dark:text-primary'>Pocket Pilot</h2>
             </div>
 
-            <button
-                onClick={toggleDarkMode}
-                className='text-xl text-gray-700  hover:text-primary transition cursor-pointer'>
-                {isDarkMode ? <FiSun /> : <FiMoon />}
-            </button>
+            <div className="relative group">
+                <button
+                    onClick={toggleTheme}
+                    className="text-xl text-gray-700 hover:text-primary transition cursor-pointer"
+                >
+                    {theme === 'dark' ? <FiSun /> : <FiMoon />}
+                </button>
+            </div>
 
             {openSideMenu && (
                 <div className='fixed top-[61px] -ml-4 bg-white '>
