@@ -25,6 +25,14 @@
         color: #f1f5f9; /* slate-100 */
     }
 
+    p {
+        color: #1f2937; /* Tailwind's gray-800 */
+      }
+      
+      .dark p {
+        color: #ececec;
+      }
+
     .input-box {
         @apply w-full flex justify-between gap-3 text-sm text-black bg-slate-100 rounded px-4 py-3 mb-4 mt-3 border border-slate-200 outline-none;
     }
@@ -113,4 +121,20 @@
     .dark .charAvatar{
         @apply text-gray-200
         }
+
+    .modalHead{
+        @apply bg-white border-b rounded-t  border border-gray-200
+    }
+
+    .dark .modalHead{
+        @apply bg-[#141f38] border-b rounded-t  border border-gray-900
+    }
+
+    .modalContent{
+        @apply bg-white
+    }
+
+    .dark .modalContent{
+        @apply bg-[#141d38]
+    }
 }

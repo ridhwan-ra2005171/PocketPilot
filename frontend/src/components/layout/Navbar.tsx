@@ -36,7 +36,7 @@ const Navbar = ({ activeMenu }) => {
                         <HiOutlineMenu className='text-2xl' />
                     )}
                 </button>
-                <h2 className='text-3xl font-semibold text-primary drop-shadow-md dark:text-primary'>Pocket Pilot</h2>
+                <h2 className='text-3xl font-semibold text-primary drop-shadow-md'>Pocket Pilot</h2>
             </div>
 
             <div className="relative group">

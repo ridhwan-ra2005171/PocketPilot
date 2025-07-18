@@ -2,8 +2,8 @@ import React from 'react'
 
 const DeleteAlert = ({content, onDelete}) => {
   return (
-    <div>
-        <p className='text-sm dark:text-white'>{content}</p>
+    <div >
+        <p className='text-sm'>{content}</p>
         <div className='flex justify-end mt-7'>
             <button type='button' className='add-btn add-btn-fill' onClick={onDelete}>Delete</button>
         </div>
