@@ -4,43 +4,78 @@
 @theme {
     --font-display: "Poppins", "sans-serif";
     --breakpoint-3xl: 1920px;
-    --color-primary: #0284c7
+    --color-primary: #0284c7;
 }
 
-@layer base{
-    html{
+@layer base {
+    html {
         font-family: var(--font-display);
-
     }
 
     body {
         background-color: #fcfbfc;
         overflow-x: hidden;
     }
+
+    .dark body {
+        background-color: #0f172a; /* slate-900 */
+        color: #f1f5f9; /* slate-100 */
+    }
+
+    .input-box {
+        @apply w-full flex justify-between gap-3 text-sm text-black bg-slate-100 rounded px-4 py-3 mb-4 mt-3 border border-slate-200 outline-none;
+    }
+
+    .btn-primary {
+        @apply w-full flex justify-center gap-3 text-sm text-white bg-primary rounded px-4 py-3 mb-4 mt-3 border border-primary outline-none;
+    }
+
+    .card {
+        @apply bg-white p-6 rounded-2xl shadow-md shadow-gray-100 border border-gray-200/50;
+    }
+
+    .card-btn {
+        @apply flex items-center gap-3 text-[12px] font-medium text-gray-700 hover:text-purple-500 bg-gray-50 hover:bg-purple-50 px-4 py-1.5 rounded-lg border border-gray-200/50 cursor-pointer;
+    }
+
+    .add-btn {
+        @apply flex items-center gap-1.5 text-xs md:text-sm font-medium text-purple-600 whitespace-nowrap bg-purple-50 border border-purple-100 rounded-lg px-4 py-2 cursor-pointer;
+    }
+
+    .add-btn-fill {
+        @apply text-white bg-primary;
+    }
+
+    /* 🔥 NEW: Dark mode overrides */
+    .dark .input-box {
+        @apply bg-slate-800 text-slate-100 border-slate-700;
+    }
+
+    .dark .btn-primary {
+        @apply bg-primary border-primary text-white;
+    }
+
+    .dark .card {
+        @apply bg-slate-800 border-slate-700 shadow-gray-800 text-slate-100;
+    }
+
+    .dark .card-btn {
+        @apply text-slate-200 bg-slate-700 hover:text-purple-300 hover:bg-purple-900 border-slate-600;
+    }
+
+    .dark .add-btn {
+        @apply text-purple-300 bg-purple-900 border-purple-800;
+    }
+
+    .dark .add-btn-fill {
+        @apply bg-primary text-white;
+    }
+
+    text {
+    fill: #333; /* default for light mode */
+  }
+
+  .dark text {
+    fill: #f1f5f9; /* light color for dark mode (e.g., slate-100) */
+  }
 }
-
-.input-box {
-    @apply w-full flex justify-between gap-3 text-sm text-black bg-slate-100 rounded px-4 py-3 mb-4 mt-3 border border-slate-200 outline-none;
-}
-
-.btn-primary {
-    @apply w-full flex justify-center gap-3 text-sm text-white bg-primary rounded px-4 py-3 mb-4 mt-3 border border-primary outline-none;
-}
-
-.card {
-    @apply bg-white p-6 rounded-2xl shadow-md shadow-gray-100 border border-gray-200/50;
-}
-
-.card-btn{
-    @apply flex items-center gap-3 text-[12px] font-medium text-gray-700 hover:text-purple-500 bg-gray-50 hover:bg-purple-50 px-4 py-1.5 rounded-lg border border-gray-200/50 cursor-pointer;
-}
-
-.add-btn{
-    @apply flex items-center gap-1.5 text-xs md:text-sm font-medium text-purple-600 whitespace-nowrap bg-purple-50 border border-purple-100 rounded-lg px-4 py-2 cursor-pointer;
-
-}
-
-.add-btn-fill{
-    @apply text-white bg-primary;
-}
-

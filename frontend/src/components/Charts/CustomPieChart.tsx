@@ -37,10 +37,10 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor }) =>
                 {/* text in middle */}
             {showTextAnchor && (
                 <>
-                    <text x="50%" y="50%" dy={-25} textAnchor='middle' fill="#666" fontSize="14px">
+                    <text x="50%" y="50%" dy={-25} textAnchor='middle' className="fill-gray-600 dark:fill-gray-600" fontSize="14px" fontWeight={"bold"}>
                         {label}
                     </text>
-                    <text x="50%" y="50%" dy={8} textAnchor='middle' fill="#333" fontSize="24px" fontWeight="semi-bold">
+                    <text x="50%" y="50%" dy={8} textAnchor='middle'  fontSize="24px" fontWeight="semi-bold">
                         {totalAmount}
                     </text>
                 </>

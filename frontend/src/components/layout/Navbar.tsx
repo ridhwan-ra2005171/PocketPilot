@@ -25,7 +25,7 @@ const Navbar = ({ activeMenu }) => {
 
             <div className='flex items-center gap-5'>
                 <button
-                    className='block lg:hidden text-black '
+                    className='block lg:hidden text-black cursor-pointer'
                     onClick={() => setOpenSideMenu(!openSideMenu)}>
                     {openSideMenu ? (
                         <HiOutlineX className='text-2xl' />
