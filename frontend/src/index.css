@@ -79,4 +79,12 @@
   .dark text {
     fill: #f1f5f9; /* light color for dark mode (e.g., slate-100) */
   }
+
+  .sub {
+    @apply text-gray-400 
+  }
+
+  .dark .sub {
+    @apply text-gray-200
+  }
 }

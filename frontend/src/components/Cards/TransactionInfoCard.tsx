@@ -7,7 +7,7 @@ const TransactionInfoCard = ({ icon, title, date, amount, type, hideDeleteBtn, o
     
 
     return (
-        <div className='group relative flex items-center gap-4 mt-2 p-3 rounded-lg hover:bg-gray-100/60'>
+        <div className='group relative flex items-center gap-4 mt-2 p-3 rounded-lg hover:bg-blue-100/60'>
             <div className='w-12 h-12 flex items-center justify-center text-gray-800 bg-gray-100 rounded-full'>
                 {
                     icon ? (
@@ -21,7 +21,7 @@ const TransactionInfoCard = ({ icon, title, date, amount, type, hideDeleteBtn, o
             <div className='flex-1 flex items-center justify-between'>
                 <div>
                     <p className='text-sm  font-medium'>{title}</p>
-                    <p className='text-xs text-gray-400 mt-1'>{date}</p>
+                    <p className='text-xs mt-1 sub'>{date}</p>
 
                 </div>
             </div>
