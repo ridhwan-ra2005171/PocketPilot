@@ -1,21 +1,32 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
+import { UserContext } from '../../context/userContext';
+import { getCurrencySymbol } from '../../utils/helper';
 
-const CustomBarChart = ({data}) => {
+interface User {
+    currency: string
+}
+interface UserContextType {
+    user: User | null;
+}
+
+const CustomBarChart = ({ data }) => {
     // console.log(data);
-    
+    const { user } = useContext(UserContext) as UserContextType;
+    const currencySymbol = getCurrencySymbol(user?.currency || "USD");
+
     //to alternate colors
-    const getBarColor = (index) =>{
+    const getBarColor = (index) => {
         return index % 2 === 0 ? "#0284c7" : "#B3DAEE";
     }
 
-    const CustomTooltip = ({active, payload}) => {
-        if(active && payload && payload.length) {
+    const CustomTooltip = ({ active, payload }) => {
+        if (active && payload && payload.length) {
             return (
                 <div className="bg-white shadow-md rounded-lg p-2 border border-gray-300">
                     <p className="text-xs font-semibold text-primary mb-1">{payload[0].payload.category}</p>
                     <p className='text-sm text-gray-600'>
-                        Amount: <span className='text-sm font-medium text-gray-900'>${payload[0].payload.amount}</span>
+                        Amount: <span className='text-sm font-medium text-gray-900'>{currencySymbol}{payload[0].payload.amount}</span>
                     </p>
                 </div>
             );
@@ -23,32 +34,32 @@ const CustomBarChart = ({data}) => {
         return null
     };
 
-  return (
-    <div className=' mt-6'>
-        <ResponsiveContainer width={"100%"} height={300} >
-            <BarChart data={data}>
-                <CartesianGrid stroke='none'/>
-                <XAxis dataKey={"month"} tick={{fontSize: 12, fill: '#555'}} stroke='none'/>
-                <YAxis tick={{fontSize: 12, fill: '#555'}} stroke='none'/>
+    return (
+        <div className=' mt-6'>
+            <ResponsiveContainer width={"100%"} height={300} >
+                <BarChart data={data}>
+                    <CartesianGrid stroke='none' />
+                    <XAxis dataKey={"month"} tick={{ fontSize: 12, fill: '#555' }} stroke='none' />
+                    <YAxis tick={{ fontSize: 12, fill: '#555' }} stroke='none' />
 
-                <Tooltip content={CustomTooltip}/>
+                    <Tooltip content={CustomTooltip} />
 
-                <Bar
-                    dataKey={"amount"}
-                    fill='#FF8042'
-                    activeBar={{radius: 5, strokeWidth: 1, stroke: "green"}}
-                >
-                    {
-                        data.map((entry, index) => (
-                            <Cell key={index} fill={getBarColor(index)}/>
-                        ))
-                    }
-                </Bar>
-            </BarChart>
+                    <Bar
+                        dataKey={"amount"}
+                        fill='#FF8042'
+                        activeBar={{ radius: 5, strokeWidth: 1, stroke: "green" }}
+                    >
+                        {
+                            data.map((entry, index) => (
+                                <Cell key={index} fill={getBarColor(index)} />
+                            ))
+                        }
+                    </Bar>
+                </BarChart>
 
-        </ResponsiveContainer>
-    </div>
-  )
+            </ResponsiveContainer>
+        </div>
+    )
 }
 
 export default CustomBarChart

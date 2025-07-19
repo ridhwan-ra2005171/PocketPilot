@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import DashboardLayout from '../../components/layout/DashboardLayout'
 import { useUserAuth } from '../../hooks/useUserAuth';
 import { useNavigate } from 'react-router-dom';
@@ -7,21 +7,32 @@ import { API_PATHS } from '../../utils/apiPaths';
 import InfoCard from '../../components/Cards/InfoCard';
 import {LuHandCoins, LuWalletMinimal} from "react-icons/lu";
 import {IoMdCard} from "react-icons/io";
-import {addThousandsSeparator} from "../../utils/helper";
+import {addThousandsSeparator, getCurrencySymbol} from "../../utils/helper";
 import RecentTransactions from '../../components/Dashboard/RecentTransactions';
 import FinanceOverview from '../../components/Dashboard/FinanceOverview';
 import ExpenseTransactions from '../../components/Dashboard/ExpenseTransactions';
 import Last30DaysExpenses from '../../components/Dashboard/Last30DaysExpenses';
 import RecentIncomeChart from '../../components/Dashboard/RecentIncomeChart';
 import RecentIncome from '../../components/Dashboard/RecentIncome';
+import { UserContext } from '../../context/userContext';
+
+interface User {
+    currency: string
+}
+interface UserContextType {
+    user: User | null;
+}
 
 const Home = () => {
   useUserAuth();
-
+  
+  const { user } = useContext(UserContext) as UserContextType;
   const navigate = useNavigate();
 
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(false);
+  
+  const currencySymbol = getCurrencySymbol(user?.currency || "USD");
 
   const fetchDashboardData = async () => {
     if (loading) return;
@@ -44,6 +55,7 @@ const Home = () => {
     fetchDashboardData();
     return () => { };
   }, []);
+  
 
   return (
     <DashboardLayout activeMenu="Dashboard">
@@ -52,19 +64,19 @@ const Home = () => {
           <InfoCard
             icon={<IoMdCard />}
             label="Total Balance"
-            value={addThousandsSeparator(dashboardData?.totalBalance || "")}
+            value={currencySymbol+addThousandsSeparator(dashboardData?.totalBalance || "")}
             color="bg-primary"
           />
           <InfoCard
             icon={<LuWalletMinimal />}
             label="Total Income"
-            value={addThousandsSeparator(dashboardData?.totalIncome || "")}
+            value={currencySymbol+addThousandsSeparator(dashboardData?.totalIncome || "")}
             color="bg-green-500"
           />
           <InfoCard
             icon={<LuHandCoins />}
             label="Total Expense"
-            value={addThousandsSeparator(dashboardData?.totalExpense || "")}
+            value={currencySymbol+addThousandsSeparator(dashboardData?.totalExpense || "")}
             color="bg-orange-500"
           />
         </div>

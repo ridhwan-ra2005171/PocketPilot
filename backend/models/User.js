@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     profileImageUrl: { type: String, default: null },
+    currency: { type: String, default: "USD" },
   },
   { timestamps: true }
 );
@@ -25,5 +26,8 @@ UserSchema.pre("save", async function (next) {
 UserSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
+
+
+
 
 module.exports = mongoose.model("User", UserSchema);

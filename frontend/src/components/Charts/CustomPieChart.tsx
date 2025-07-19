@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import React from 'react'
+import React, { useContext } from 'react'
 import {
     PieChart,
     Pie,
@@ -11,9 +11,21 @@ import {
 } from "recharts";
 import CustomTooltip from './CustomTooltip';
 import CustomLegend from './CustomLegend';
+import { UserContext } from '../../context/userContext';
+import { getCurrencySymbol } from '../../utils/helper';
+
+interface User {
+    currency: string
+}
+interface UserContextType {
+    user: User | null;
+}
 
 
 const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor }) => {
+      const { user } = useContext(UserContext) as UserContextType;
+      const currencySymbol = getCurrencySymbol(user?.currency || "USD");
+    
     return <ResponsiveContainer  width="100%" height={380}>
         <PieChart>
             <Pie
@@ -41,7 +53,7 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor }) =>
                         {label}
                     </text>
                     <text x="50%" y="50%" dy={8} textAnchor='middle'  fontSize="24px" fontWeight="semi-bold">
-                        {totalAmount}
+                        {currencySymbol+totalAmount}
                     </text>
                 </>
             )}

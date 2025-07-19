@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { LuUtensils, LuTrendingUp, LuTrendingDown, LuTrash2 } from 'react-icons/lu'
+import { UserContext } from '../../context/userContext';
+import { getCurrencySymbol } from '../../utils/helper';
+
+interface User {
+    currency: string
+}
+interface UserContextType {
+    user: User | null;
+}
 
 const TransactionInfoCard = ({ icon, title, date, amount, type, hideDeleteBtn, onDelete }) => {
-
+    const {user} = useContext(UserContext) as UserContextType;
     const getAmountStyles = () =>  type === 'income' ? 'bg-green-50 text-green-500' : 'bg-red-50 text-red-500';
-    
+    const currencySymbol = getCurrencySymbol(user?.currency || "USD");
 
     return (
         <div className='group relative flex items-center gap-4 mt-2 p-3 rounded-lg hover:bg-blue-100/60'>
@@ -34,7 +43,7 @@ const TransactionInfoCard = ({ icon, title, date, amount, type, hideDeleteBtn, o
 
                 <div className={`flex items-center gap-2 px-3 py-1.5 rounded-md ${getAmountStyles()}`}>
                     <h6 className='text-xs font-semibold'>
-                        {type === "income"? "+": "-"} ${amount}
+                        {type === "income"? "+": "-"} {currencySymbol +amount}
                     </h6>
                     {type === "income"? <LuTrendingUp /> : <LuTrendingDown />}
                 </div>

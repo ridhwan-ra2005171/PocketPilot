@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, Area, AreaChart } from 'recharts'
+import { UserContext } from '../../context/userContext';
+import { getCurrencySymbol } from '../../utils/helper';
+
+interface User {
+  currency: string
+}
+interface UserContextType {
+  user: User | null;
+}
 
 const CustomLineChart = ({ data }) => {
 
-    const CustomTooptip = ({ active, payload }) => {
+    const CustomTooltip = ({ active, payload }) => {
+
+        const { user } = useContext(UserContext) as UserContextType;
+          const currencySymbol = getCurrencySymbol(user?.currency || "USD");
         if (active && payload && payload.length) {
             return (
                 <div className="bg-white shadow-md rounded-lg p-2 border border-gray-300">
                     <p className="text-xs font-semibold text-primary mb-1">{payload[0].payload.category}</p>
                     <p className='text-sm text-gray-600'>
-                        Amount: <span className='text-sm font-medium text-gray-900'>${payload[0].payload.amount}</span>
+                        Amount: <span className='text-sm font-medium text-gray-900'>{currencySymbol}{payload[0].payload.amount}</span>
                     </p>
                 </div>
             );
@@ -29,7 +41,7 @@ const CustomLineChart = ({ data }) => {
                     <CartesianGrid stroke='none' />
                     <XAxis dataKey={"month"} tick={{ fontSize: 12, fill: '#555' }} stroke='none' />
                     <YAxis tick={{ fontSize: 12, fill: '#555' }} stroke='none' />
-                    <Tooltip content={CustomTooptip} />
+                    <Tooltip content={CustomTooltip} />
 
                     <Area type="monotone" dataKey="amount" stroke="#0284c7" fill="url(#incomeGradient)" strokeWidth={3} dot={{ r: 3, fill: '#ab8df8' }} />
                 </AreaChart>

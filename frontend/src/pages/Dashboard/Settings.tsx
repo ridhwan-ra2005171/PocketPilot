@@ -177,7 +177,7 @@ const Settings = () => {
                             onChange={e => setCurrency(e.target.value)}
                         >
                             {currencyOptions.map(opt => (
-                                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                <option className='text-stone-700' key={opt.value} value={opt.value}>{opt.label}</option>
                             ))}
                         </select>
                     </div>
