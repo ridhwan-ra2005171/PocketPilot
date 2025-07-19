@@ -137,4 +137,28 @@
     .dark .modalContent{
         @apply bg-[#141d38]
     }
+
+    .authLayout{
+        @apply bg-white
+    }
+
+    .dark .authLayout{
+        @apply bg-[#22313e]
+    }
+
+    .authLayoutLeft{
+        @apply bg-white
+    }
+
+    .dark .authLayoutLeft{
+        @apply bg-[#0e171e]
+    }
+
+    .authLayoutRight{
+        @apply bg-primary/50
+    }
+
+    .dark .authLayoutRight{
+        @apply bg-[#131d27]
+    }
 }
