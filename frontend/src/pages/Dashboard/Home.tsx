@@ -33,6 +33,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   
   const currencySymbol = getCurrencySymbol(user?.currency || "USD");
+  
 
   const fetchDashboardData = async () => {
     if (loading) return;

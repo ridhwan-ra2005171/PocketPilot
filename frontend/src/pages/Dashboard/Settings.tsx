@@ -1,10 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import DashboardLayout from '../../components/layout/DashboardLayout'
 import ProfilePhotoSelector from '../../components/inputs/ProfilePhotoSelector'
 import { UserContext } from '../../context/userContext'
 import uploadImage from '../../utils/uploadImage'
 import Input from '../../components/inputs/input'
 import CharAvatar from '../../components/Cards/CharAvatar'
+import { API_PATHS } from '../../utils/apiPaths'
+import axiosInstance from '../../utils/axiosInstance'
+import toast from 'react-hot-toast'
+import { useUserAuth } from '../../hooks/useUserAuth'
 
 // Add User and context types inline
 interface User {
@@ -20,6 +24,7 @@ interface UserContextType {
 }
 
 const Settings = () => {
+    useUserAuth();
     const { user, updateUser } = useContext(UserContext) as UserContextType;
     // Local state for form fields
     const [name, setName] = useState(user?.fullName || '');
@@ -33,18 +38,17 @@ const Settings = () => {
     const [success, setSuccess] = useState('');
     // Currency state
     const currencyOptions = [
-        { label: 'US Dollar (USD)', value: 'USD' },
         { label: 'Euro (EUR)', value: 'EUR' },
-        { label: 'Indian Rupee (INR)', value: 'INR' },
+        { label: 'US Dollar (USD)', value: 'USD' },
+        { label: 'Qatar Riyal (QAR)', value: 'QAR' },
         { label: 'British Pound (GBP)', value: 'GBP' },
         { label: 'Japanese Yen (JPY)', value: 'JPY' },
         { label: 'Canadian Dollar (CAD)', value: 'CAD' },
         { label: 'Australian Dollar (AUD)', value: 'AUD' },
+        { label: 'Indian Rupee (INR)', value: 'INR' },
         // Add more as needed
     ];
     const [currency, setCurrency] = useState(user?.currency || 'USD');
-    const [currencySuccess, setCurrencySuccess] = useState('');
-    const [currencyLoading, setCurrencyLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -81,21 +85,22 @@ const Settings = () => {
         }
     };
 
-    const handleCurrencySave = (e: React.FormEvent) => {
-        e.preventDefault();
-        setCurrencyLoading(true);
-        setCurrencySuccess('');
-        // Mock update
-        updateUser({
-            ...user,
-            name: user?.name || '',
-            email: user?.email || '',
-            profileImage: user?.profileImage || '',
-            currency,
-        });
-        setCurrencySuccess('Currency updated!');
-        setCurrencyLoading(false);
+    const handleCurrencySave = async () => {
+        //patch currency API call
+        try {
+            await axiosInstance.patch(API_PATHS.AUTH.UPDATE_CURRENCY, {
+                currency: currency
+            });
+            toast.success("Income added successfully");
+
+        } catch (error) {
+            console.log("Failed to update currency. Please try again", error);
+            toast.error("Failed to update currency. Please try again");
+        }
+
     };
+
+    
 
     return (
         <DashboardLayout activeMenu={"Settings"}>
@@ -156,7 +161,7 @@ const Settings = () => {
                     {success && <div className='text-green-600 text-sm mb-2'>{success}</div>}
                     <button
                         type='submit'
-                        className='btn btn-primary w-full mt-2'
+                        className='btn btn-primary w-full mt-2 cursor-pointer'
                         disabled={loading}
                     >
                         {loading ? 'Saving...' : 'Save Changes'}
@@ -181,13 +186,12 @@ const Settings = () => {
                             ))}
                         </select>
                     </div>
-                    {currencySuccess && <div className='text-green-600 text-sm mb-2'>{currencySuccess}</div>}
+
                     <button
                         type="submit"
-                        className="btn btn-primary w-full mt-2"
-                        disabled={currencyLoading}
+                        className="btn btn-primary w-full mt-2 cursor-pointer"
                     >
-                        {currencyLoading ? 'Saving...' : 'Save Currency'}
+                        Save Currency
                     </button>
                 </form>
             </div>
