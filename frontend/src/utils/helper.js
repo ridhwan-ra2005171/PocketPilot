@@ -71,10 +71,22 @@ export const prepareExpenseLineChartData = (data = []) => {
 //TODO: add more later
 export const getCurrencySymbol = (currency) => {
   switch (currency) {
-    case "USD":
-      return "$";
     case "EUR":
       return "€";
+    case "USD":
+      return "$";
+    case "QAR":
+      return "﷼";
+    case "GBP":
+      return "£";
+    case "JPY":
+      return "¥";
+    case "CAD":
+      return "$"; 
+    case "AUD":
+      return "$";
+    case "INR":
+      return "₹";
     default:
       return "$";
   }

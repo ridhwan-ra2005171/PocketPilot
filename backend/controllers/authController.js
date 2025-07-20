@@ -98,3 +98,28 @@ exports.deleteProfileImage = async (req, res) => {
         res.status(500).json({ message: "Error clearing profile image URL", error: err.message });
     }
 };
+
+//Update user currency
+exports.updateCurrency = async (req, res) => {
+    const { currency } = req.body;
+
+    //validate request
+    if (!currency) {
+        return res.status(400).json({ message: "Currency is required" });
+    }
+
+    try{
+        const user = await User.findById(req.user.id).select("-password");
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        user.currency = currency;
+        await user.save();
+
+        res.status(200).json({ message: "Currency updated successfully" });
+    } catch (err) {
+        res.status(500).json({ message: "Error updating currency", error: err.message });
+    }
+}
