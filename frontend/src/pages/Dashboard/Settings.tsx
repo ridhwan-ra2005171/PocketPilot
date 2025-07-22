@@ -29,7 +29,7 @@ const Settings = () => {
     // Local state for form fields
     const [fullName, setfullName] = useState(user?.fullName || '');
     const [email, setEmail] = useState(user?.email || '');
-    const [image, setImage] = useState(null); // file object
+    const [image, setImage] = useState(user?.profileImageUrl || ''); // file object
     const [profileImageUrl, setProfileImageUrl] = useState(user?.profileImageUrl || '');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -51,6 +51,8 @@ const Settings = () => {
     const [currency, setCurrency] = useState(user?.currency || 'USD');
 
     const handleSubmit = async (e: React.FormEvent) => {
+        console.log("img", image);
+
         e.preventDefault();
         setError('');
         setSuccess('');
@@ -58,11 +60,14 @@ const Settings = () => {
         try {
             let uploadedImageUrl = profileImageUrl;
             if (image) {
-                // Upload new image
-                const res = await uploadImage(image);
-                uploadedImageUrl = res?.imageUrl || uploadedImageUrl;
+                const imgUploadResponse = await uploadImage(image);
+                uploadedImageUrl = imgUploadResponse?.imageUrl || "";
                 setProfileImageUrl(uploadedImageUrl);
+            } else {             
+                uploadedImageUrl = "";   
+                setProfileImageUrl("");
             }
+
             if (password && password !== confirmPassword) {
                 setError('Passwords do not match');
                 setLoading(false);
@@ -73,7 +78,7 @@ const Settings = () => {
                 ...(fullName && { fullName }),
                 ...(email && { email }),
                 ...(password && { password }),
-                ...(profileImageUrl && { profileImageUrl })
+                profileImageUrl: uploadedImageUrl  // always include, even if ""
             });
             toast.success("Profile updated successfully");
 
@@ -118,7 +123,7 @@ const Settings = () => {
                     <p className='text-xs text-gray-400 mt-0.5'>Manage your profile settings</p>
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <ProfilePhotoSelector image={image || user?.profileImageUrl} setImage={setImage} />
+                    <ProfilePhotoSelector image={image} setImage={setImage} />
                     {/* <div className='flex justify-center mb-6'>
                         {user?.profileImageUrl ? (
                             <img

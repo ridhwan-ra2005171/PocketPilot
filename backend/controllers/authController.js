@@ -128,7 +128,7 @@ exports.updateProfile = async (req, res) => {
     if (fullName) user.fullName = fullName;
     if (email) user.email = email;
     if (password) user.password = password;
-    if (profileImageUrl) user.profileImageUrl = profileImageUrl;
+    user.profileImageUrl = profileImageUrl;
 
     await user.save();
 

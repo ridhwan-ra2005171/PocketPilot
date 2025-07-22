@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { LuUser, LuUpload, LuTrash } from 'react-icons/lu'
+import axiosInstance from '../../utils/axiosInstance';
 
 const ProfilePhotoSelector = ({ image, setImage }) => {
     const inputRef = useRef(null);
@@ -31,7 +32,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
         
     }
 
-    const onChooseFile = () => inputRef.current.click();
+    const onChooseFile = () => inputRef.current?.click();
 
     return (
         <div className='flex justify-center mb-6'>

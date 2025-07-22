@@ -7,7 +7,8 @@ export const API_PATHS ={
         SIGNUP:`/api/v1/auth/register`,
         GET_USER_INFO:`/api/v1/auth/getUser`,
         UPDATE_CURRENCY:`/api/v1/auth/update-currency`,
-        UPDATE_PROFILE:`/api/v1/auth/update-profile`
+        UPDATE_PROFILE:`/api/v1/auth/update-profile`,
+        REMOVE_IMAGE:`/api/v1/auth/delete-image`
     },
     DASHBOARD:{
         GET_DATA:`/api/v1/dashboard`
