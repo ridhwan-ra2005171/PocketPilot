@@ -6,7 +6,8 @@ const {
     loginUser,
     getUserInfo,
     deleteProfileImage,
-    updateCurrency
+    updateCurrency,
+    updateProfile
 } = require("../controllers/authController");
 const upload = require("../middleware/uploadMiddleware");
 
@@ -28,5 +29,6 @@ router.post("/upload-image", upload.single("image"), (req, res) => {
 
 router.patch("/delete-image", protect, deleteProfileImage);
 router.patch("/update-currency", protect, updateCurrency);
+router.patch("/update-profile", protect, updateProfile);
 
 module.exports = router;

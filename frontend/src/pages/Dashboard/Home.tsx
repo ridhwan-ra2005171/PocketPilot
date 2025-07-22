@@ -25,7 +25,6 @@ interface UserContextType {
 
 const Home = () => {
   useUserAuth();
-  
   const { user } = useContext(UserContext) as UserContextType;
   const navigate = useNavigate();
 

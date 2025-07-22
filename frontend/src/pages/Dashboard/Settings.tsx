@@ -12,13 +12,13 @@ import { useUserAuth } from '../../hooks/useUserAuth'
 
 // Add User and context types inline
 interface User {
-    name: string;
+    fullName: string;
     email: string;
     profileImage?: string;
     [key: string]: any;
 }
 interface UserContextType {
-    user: User | null;
+    fullName: User | null;
     updateUser: (user: User) => void;
     clearUser: () => void;
 }
@@ -27,7 +27,7 @@ const Settings = () => {
     useUserAuth();
     const { user, updateUser } = useContext(UserContext) as UserContextType;
     // Local state for form fields
-    const [name, setName] = useState(user?.fullName || '');
+    const [fullName, setfullName] = useState(user?.fullName || '');
     const [email, setEmail] = useState(user?.email || '');
     const [image, setImage] = useState(null); // file object
     const [profileImageUrl, setProfileImageUrl] = useState(user?.profileImageUrl || '');
@@ -69,30 +69,39 @@ const Settings = () => {
                 return;
             }
             // TODO: Replace with real API call to update user profile
-            // Mock update
-            updateUser({
-                ...user,
-                name,
-                email,
-                profileImage: uploadedImageUrl,
-                // Do not store password in context
+            await axiosInstance.patch(API_PATHS.AUTH.UPDATE_PROFILE, {
+                ...(fullName && { fullName }),
+                ...(email && { email }),
+                ...(password && { password }),
+                ...(profileImageUrl && { profileImageUrl })
             });
+            toast.success("Profile updated successfully");
+
             setSuccess('Profile updated successfully!');
+            const response = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
+            updateUser(response.data);
         } catch (err) {
             setError('Failed to update profile.');
+            console.log("Failed to update profile. Please try again", err);
         } finally {
             setLoading(false);
         }
     };
 
-    const handleCurrencySave = async () => {
+    const handleCurrencySave = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSuccess('');
+
+
         //patch currency API call
         try {
             await axiosInstance.patch(API_PATHS.AUTH.UPDATE_CURRENCY, {
                 currency: currency
             });
-            toast.success("Income added successfully");
-
+            toast.success("Currency Changed successfully");
+            setSuccess('Profile updated successfully!');
+            const response = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
+            updateUser(response.data);
         } catch (error) {
             console.log("Failed to update currency. Please try again", error);
             toast.error("Failed to update currency. Please try again");
@@ -100,7 +109,6 @@ const Settings = () => {
 
     };
 
-    
 
     return (
         <DashboardLayout activeMenu={"Settings"}>
@@ -131,8 +139,8 @@ const Settings = () => {
                     <label className='block text-sm'>Name</label>
                     <Input
                         type='text'
-                        value={name}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                        value={fullName}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setfullName(e.target.value)}
                         placeholder='Enter your name'
                     />
                     <label className='block text-sm'>Email</label>
@@ -152,7 +160,7 @@ const Settings = () => {
                     />
                     <label className='block text-sm'>Confirm New Password</label>
                     <Input
-                        value={password}
+                        value={confirmPassword}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
                         placeholder='Enter your password'
                         type='password'
