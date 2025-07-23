@@ -42,27 +42,65 @@ export const prepareExpenseBarChartData = (data = []) => {
   return chartData;
 };
 
+// export const prepareIncomeBarChartData = (data = []) => {
+//   const sortedData = [...data].sort(
+//     (a, b) => new Date(a.date) - new Date(b.date)
+//   );
+
+//   const chartData = sortedData.map((item) => ({
+//     month: moment(item?.date).format("Do MMM"),
+//     source: item?.source,
+//     amount: item?.amount,
+//   }));
+
+//   return chartData;
+// };
+
 export const prepareIncomeBarChartData = (data = []) => {
-  const sortedData = [...data].sort(
+  // Group amounts by date
+  const grouped = data.reduce((acc, item) => {
+    const dateKey = moment(item.date).format("YYYY-MM-DD"); // normalize date key
+    if (!acc[dateKey]) {
+      acc[dateKey] = { date: item.date, amount: 0 };
+    }
+    acc[dateKey].amount += item.amount;
+    return acc;
+  }, {});
+
+  // Convert grouped data to an array and sort it
+  const sortedData = Object.values(grouped).sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   );
 
+  // Map to chart format
   const chartData = sortedData.map((item) => ({
-    month: moment(item?.date).format("Do MMM"),
-    source: item?.source,
-    amount: item?.amount,
+    month: moment(item.date).format("Do MMM"),
+    amount: item.amount,
   }));
 
   return chartData;
 };
 
 export const prepareExpenseLineChartData = (data = []) => {
-  const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+  // Group amounts by date
+  const grouped = data.reduce((acc, item) => {
+    const dateKey = moment(item.date).format("YYYY-MM-DD"); // normalize date key
+    if (!acc[dateKey]) {
+      acc[dateKey] = { date: item.date, amount: 0 };
+    }
+    acc[dateKey].amount += item.amount;
+    return acc;
+  }, {});
 
+  // Convert grouped data to array and sort
+  const sortedData = Object.values(grouped).sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+
+  // Map to chart format
   const chartData = sortedData.map((item) => ({
-    month: moment(item?.date).format("Do MMM"),
-    amount: item?.amount,
-    category: item?.category,
+    month: moment(item.date).format("Do MMM"),
+    amount: item.amount,
   }));
 
   return chartData;
@@ -82,7 +120,7 @@ export const getCurrencySymbol = (currency) => {
     case "JPY":
       return "¥";
     case "CAD":
-      return "$"; 
+      return "$";
     case "AUD":
       return "$";
     case "INR":

@@ -28,6 +28,7 @@ const Income = () => {
       const response = await axiosInstance.get(`${API_PATHS.INCOME.GET_ALL_INCOME}`);
 
       if (response.data) {
+        
         setIncomeData(response.data);
       }
     } catch (error) {
