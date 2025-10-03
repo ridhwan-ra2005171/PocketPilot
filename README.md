@@ -107,21 +107,21 @@ The repository is organized into two main directories:
 
 The backend exposes the following RESTful API endpoints:
 
-| Method | Endpoint                       | Description                                      | Protected |
-| :----- | :----------------------------- | :----------------------------------------------- | :-------- |
-| `POST` | `/api/v1/auth/register`        | Register a new user.                             | No        |
-| `POST` | `/api/v1/auth/login`           | Log in an existing user.                         | No        |
-| `GET`  | `/api/v1/auth/getUser`         | Get current user's information.                  | Yes       |
-| `PATCH`| `/api/v1/auth/update-profile`  | Update the current user's profile.               | Yes       |
-| `PATCH`| `/api/v1/auth/update-currency` | Update the user's preferred currency.            | Yes       |
-| `POST` | `/api/v1/auth/upload-image`    | Upload a profile image.                          | Yes       |
-| `PATCH`| `/api/v1/auth/delete-image`    | Delete the user's profile image.                 | Yes       |
-| `GET`  | `/api/v1/dashboard`            | Get aggregated data for the dashboard.           | Yes       |
-| `POST` | `/api/v1/income/add`           | Add a new income record.                         | Yes       |
-| `GET`  | `/api/v1/income/get`           | Get all income records for the user.             | Yes       |
-| `DELETE`| `/api/v1/income/delete/:id`    | Delete an income record by its ID.               | Yes       |
-| `GET`  | `/api/v1/income/downloadExcel` | Download all income records as an Excel file.    | Yes       |
-| `POST` | `/api/v1/expense/add`          | Add a new expense record.                        | Yes       |
-| `GET`  | `/api/v1/expense/get`          | Get all expense records for the user.            | Yes       |
-| `DELETE`| `/api/v1/expense/:id`          | Delete an expense record by its ID.              | Yes       |
-| `GET`  | `/api/v1/expense/downloadExcel`| Download all expense records as an Excel file.   | Yes       |
+| Method | Endpoint                       | Description                                      | 
+| :----- | :----------------------------- | :----------------------------------------------- | 
+| `POST` | `/api/v1/auth/register`        | Register a new user.                             | 
+| `POST` | `/api/v1/auth/login`           | Log in an existing user.                         | 
+| `GET`  | `/api/v1/auth/getUser`         | Get current user's information.                  | 
+| `PATCH`| `/api/v1/auth/update-profile`  | Update the current user's profile.               | 
+| `PATCH`| `/api/v1/auth/update-currency` | Update the user's preferred currency.            | 
+| `POST` | `/api/v1/auth/upload-image`    | Upload a profile image.                          | 
+| `PATCH`| `/api/v1/auth/delete-image`    | Delete the user's profile image.                 | 
+| `GET`  | `/api/v1/dashboard`            | Get aggregated data for the dashboard.           | 
+| `POST` | `/api/v1/income/add`           | Add a new income record.                         | 
+| `GET`  | `/api/v1/income/get`           | Get all income records for the user.             | 
+| `DELETE`| `/api/v1/income/delete/:id`    | Delete an income record by its ID.               | 
+| `GET`  | `/api/v1/income/downloadExcel` | Download all income records as an Excel file.    | 
+| `POST` | `/api/v1/expense/add`          | Add a new expense record.                        | 
+| `GET`  | `/api/v1/expense/get`          | Get all expense records for the user.            | 
+| `DELETE`| `/api/v1/expense/:id`          | Delete an expense record by its ID.              | 
+| `GET`  | `/api/v1/expense/downloadExcel`| Download all expense records as an Excel file.   |
